@@ -1,14 +1,13 @@
 import { Box, Button, Grid } from '@mui/material';
 import React, { useState } from 'react'
 import axios from 'axios'
+import PieChart from './charts/PieCharts';
 
 const TopPost = () => {
-    const [cmnts, setCmnts] = useState([]);
     const [postData, setPostData] = useState([]);
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Comments will be loaded here...");
-    const [data, setData] = useState([0, 0, 0]);
-    const [dataArray, setDataArray] = useState([]);
+    const [data, setData] = useState([1, 0, 1]);
     const fetchPosts = async () => {
         setLoading("Loading comments please wait...")
         try {
@@ -75,7 +74,9 @@ const TopPost = () => {
                             }
                         </Box></Grid>
                     <Grid item xs={5}>
-
+                        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
+                            <PieChart data={data} />
+                        </Box>
                     </Grid>
                 </Grid>
 
