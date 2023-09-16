@@ -27,6 +27,13 @@
 .App-link {
   color: #61dafb;
 }
+.cmnts-box {
+
+  padding: 20px;
+  border: 2px solid #04d9ff;
+  height: 40vh;
+  overflow-y: scroll;
+}
 
 @keyframes App-logo-spin {
   from {
