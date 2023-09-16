@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 import './App.css';
 import React, { useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton';
@@ -14,7 +10,6 @@ function App() {
   }
   return (
     <div className="App">
-<<<<<<< HEAD
       <h1 >Social Sentiment Analyzer</h1>
       <ToggleButtonGroup
         value={mode}
@@ -30,10 +25,7 @@ function App() {
         <ToggleButton value="history">History</ToggleButton>
       </ToggleButtonGroup>
       <SinglePost />
-=======
- 
->>>>>>> main
-    </div >
+    </div>
   );
 }
 
