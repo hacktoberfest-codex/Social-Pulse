@@ -8,6 +8,7 @@ const TopPost = () => {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Comments will be loaded here...");
     const [data, setData] = useState([1, 0, 1]);
+    const [cmnts, setCmnts] = useState([]);
     const fetchPosts = async () => {
         setLoading("Loading comments please wait...")
         try {
@@ -40,6 +41,31 @@ const TopPost = () => {
             setPostData([]);
         };
     }
+    const fetchComments = async (link) => {
+        setLoading("Loading comments please wait...")
+        try {
+            if (url !== "") {
+                const response = await axios.get(link + ".json")
+                console.log(response);
+                const comments = [];
+                const data = response.data[1].data.children;
+
+                data.forEach((child) => {
+                    const comment = child.data.body;
+                    comments.push(comment);
+
+                });
+                setCmnts(comments);
+
+                setLoading("Comments will be loaded here...");
+            }
+        }
+        catch (error) {
+            console.error('Error fetching comments:', error);
+            setLoading("Error occurred! Enter proper link or check your internet connection ");
+            setCmnts([]);
+        };
+    }
     const handleAction = () => {
         fetchPosts();
     }
@@ -64,7 +90,7 @@ const TopPost = () => {
                                         <>
                                             <Box sx={{ display: "flex", flexDirection: "column" }}>
                                                 <a style={{ textDecoration: 'none', color: "black" }} href={`https://www.reddit.com${ele.PostURL}`} target='_blank' className='para'>{`${ele.Title}`}</a>
-                                                <p> `(Total cmnts=${ele.TotalComments})` </p>
+                                                <p> (Total cmnts={ele.TotalComments}) </p> <Button sx={{ width: "15%" }} onClick={() => fetchComments(`https://www.reddit.com${ele.PostURL}`)}>Analyze</Button>
                                             </Box>
                                             <hr style={{ width: "95%" }} />
                                         </>
