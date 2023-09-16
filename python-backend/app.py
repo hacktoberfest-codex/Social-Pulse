@@ -13,6 +13,12 @@ def receive_comments():
 
 
     print(comments)
+
+    #converting the data into CSV to feed the model
+    with open('Top_C.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        for comment in comments:
+            writer.writerow([comment])
     
     #Returning the data back to the frontend in the form of JSON
     return jsonify( {'comments':comments} ), 200
