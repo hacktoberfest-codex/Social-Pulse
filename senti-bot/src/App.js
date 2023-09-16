@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-
+import React, { useState } from 'react'
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import SinglePost from './components/SinglePost';
 function App() {
+  const [mode, setMode] = useState("singlePost");
+  const handleChange = () => {
+
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 >Social Sentiment Analyzer</h1>
+      <ToggleButtonGroup
+        value={mode}
+        exclusive
+        onChange={handleChange}
+        aria-label="Platform"
+        sx={{
+          color: "#ffffff", border: "2px solid #04d9ff",
+        }}
+      >
+        <ToggleButton defaultChecked={true} value="singlePost">Single Post</ToggleButton>
+        <ToggleButton value="topPost">Top Post</ToggleButton>
+        <ToggleButton value="history">History</ToggleButton>
+      </ToggleButtonGroup>
+      <SinglePost />
     </div>
   );
 }
