@@ -62,10 +62,11 @@ const TopPost = () => {
                             {postData.length == 0 ? loading :
                                 postData.map((ele, key) => {
                                     return (
-                                        <><Box sx={{ display: "flex", flexDirection: "column" }}>
-                                            <a style={{ textDecoration: 'none', color: "black" }} href={`https://www.reddit.com${ele.PostURL}`} target='_blank' className='para'>{`${ele.Title}`}</a>
-                                            <p> `(Total cmnts=${ele.TotalComments})` </p>
-                                        </Box>
+                                        <>
+                                            <Box sx={{ display: "flex", flexDirection: "column" }}>
+                                                <a style={{ textDecoration: 'none', color: "black" }} href={`https://www.reddit.com${ele.PostURL}`} target='_blank' className='para'>{`${ele.Title}`}</a>
+                                                <p> `(Total cmnts=${ele.TotalComments})` </p>
+                                            </Box>
                                             <hr style={{ width: "95%" }} />
                                         </>
 
