@@ -7,7 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Link, Typography } from '@mui/material';
+import { Button, Link, Typography } from '@mui/material';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -29,17 +30,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+
 
 export default function History() {
     const [data, setData] = React.useState([]);
@@ -49,9 +41,11 @@ export default function History() {
             setData(JSON.parse(localStorage.getItem("storeData")));
     }, [])
 
-    // data.map((ele,key)=>{
-    //     createData(ele.postLink,ele.date,ele.totalcmnts,ele.positive,ele.negative)
-    // })
+    const handleDelete = (link) => {
+        const filteredArray = data.filter((value) => value.postLink !== link);
+        setData(filteredArray);
+        localStorage.setItem("storeData", JSON.stringify(filteredArray));
+    }
     return (
         <TableContainer component={Paper}>
             <Table sx={{
@@ -69,6 +63,7 @@ export default function History() {
                         <StyledTableCell align="center">Total Comments</StyledTableCell>
                         <StyledTableCell align="center">Positive %</StyledTableCell>
                         <StyledTableCell align="center">Negative %</StyledTableCell>
+                        <StyledTableCell align="center"></StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -83,6 +78,7 @@ export default function History() {
                             <StyledTableCell align="center">{row.totalcmnts}</StyledTableCell>
                             <StyledTableCell align="center">{row.positive}%</StyledTableCell>
                             <StyledTableCell align="center">{row.negative}%</StyledTableCell>
+                            <StyledTableCell align="center"><Button onClick={() => { handleDelete(row.postLink) }} color="error">Delete</Button></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
