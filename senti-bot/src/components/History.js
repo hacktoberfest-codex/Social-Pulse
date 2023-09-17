@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -41,9 +42,26 @@ const rows = [
 ];
 
 export default function History() {
+    const [data, setData] = React.useState([]);
+
+    React.useEffect(() => {
+        if (localStorage.getItem("storeData") != null)
+            setData(JSON.parse(localStorage.getItem("storeData")));
+    }, [])
+
+    // data.map((ele,key)=>{
+    //     createData(ele.postLink,ele.date,ele.totalcmnts,ele.positive,ele.negative)
+    // })
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table sx={{
+                minWidth: 700, "& .MuiTableCell-Root , & .css-1kt84xw-MuiTableCell-root ,& .MuiLink-root": {
+                    maxWidth: 200,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                }
+            }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Post URL</StyledTableCell>
@@ -54,15 +72,15 @@ export default function History() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
+                    {data.length > 0 && data.map((row, key) => (
+                        <StyledTableRow key={row.postLink}>
+                            <StyledTableCell sx={{ cursor: "pointer" }} scope="row" component={Link}>
+                                {row.postLink}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="center">{row.protein}</StyledTableCell>
+                            <StyledTableCell align="center">{row.date}</StyledTableCell>
+                            <StyledTableCell align="center">{row.totalcmnts}</StyledTableCell>
+                            <StyledTableCell align="center">{row.positive}%</StyledTableCell>
+                            <StyledTableCell align="center">{row.negative}%</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

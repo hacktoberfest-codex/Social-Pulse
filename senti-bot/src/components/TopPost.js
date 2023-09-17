@@ -8,7 +8,7 @@ const TopPost = () => {
     const [postData, setPostData] = useState([]);
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Posts will be loaded here...");
-    const [data, setData] = useState([1, 0, 1]);
+    const [data, setData] = useState([0, 0, 0]);
     const [cmnts, setCmnts] = useState([]);
     const fetchPosts = async () => {
         setLoading("Loading Posts please wait...")
@@ -46,7 +46,7 @@ const TopPost = () => {
             if (url !== "") {
                 const response = await axios.get(link + ".json")
                 console.log(response);
-                const comments = [];
+                const comments = ["",];
                 const data = response.data[1].data.children;
 
                 data.forEach((child) => {
@@ -111,7 +111,7 @@ const TopPost = () => {
                                                     height: "70px",
 
                                                 },
-                                                '& .MuiTypography-root,& .MuiLink-root,& .MuiLink-underlineAlways ,& .css-l38osx-MuiTypography-root-MuiLink-root-MuiTypography-root': {
+                                                '& .MuiTypography-root,& .MuiLink-root': {
                                                     display: "block",
                                                     width: "95%",
                                                     height: "19px",
@@ -127,6 +127,11 @@ const TopPost = () => {
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">
                                                         {/* Total Comments: {cmnts.length} */}
+                                                        Post ID:{ele.ID}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {/* Total Comments: {cmnts.length} */}
+                                                        Score:{ele.Score}
                                                     </Typography>
                                                 </CardContent>
                                                 <CardActions>

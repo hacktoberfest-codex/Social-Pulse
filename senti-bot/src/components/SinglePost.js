@@ -8,8 +8,14 @@ const SinglePost = () => {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Comments will be loaded here...");
     const [cmnts, setCmnts] = useState([]);
-    const [data, setData] = useState([0, 1, 3]);
+    const [data, setData] = useState([0, 0, 0]);
     const [storeData, setStoreData] = useState([]);
+
+    React.useEffect(() => {
+        if (localStorage.getItem("storeData") != null) {
+            setStoreData(JSON.parse(localStorage.getItem("storeData")));
+        }
+    }, [])
 
     const fetchRedditComments = async () => {
         try {
@@ -24,18 +30,18 @@ const SinglePost = () => {
                 comments.push(comment);
                 counter++;
             });
-            const body = { comments }
+            const body = { comments: comments.slice(0, 100) }
             console.log(body);
             setCmnts(comments.slice(1));
             const res2 = await axios.post('http://surajr425.pythonanywhere.com/analyze', body
-                )
-                console.log(res2.data.predictions);
-                const arr = [0, 0, 0];
-                res2.data.predictions.forEach(ele => {
-                    if (ele == 0) { arr[0]++ }
-                    else if (ele == 1) { arr[1]++ }
-                    else if (ele == -1) { arr[2]++ }
-                });
+            )
+            console.log(res2.data.predictions);
+            const arr = [0, 0, 0];
+            res2.data.predictions.forEach(ele => {
+                if (ele == 0) { arr[0]++ }
+                else if (ele == 1) { arr[1]++ }
+                else if (ele == -1) { arr[2]++ }
+            });
             setData(arr);
             console.log('Comments saved to Top Comments.json');
             setLoading("Comments will be loaded here...");
@@ -47,14 +53,54 @@ const SinglePost = () => {
 
         }
     }
+    const fetchYtComments = async () => {
+        setLoading("Loading comments please wait...")
+        try {
+            if (url !== "") {
+                const apiKey = 'AIzaSyDksmE5Cf91b4vhpgFRpGa-dIb6Dqp00Ao';
+
+                // Set the URL for the YouTube Data API request
+                const apiUrl = `https://www.googleapis.com/youtube/v3/commentThreads?key=${apiKey}&textFormat=plainText&part=snippet&videoId=${url.slice(32)}&maxResults=200`;
+                const response = await axios.get(apiUrl)
+
+                console.log(response);
+
+                const comments = ["",];
+                const data = response.data.items;
+                data.forEach((item) => {
+                    const comment = item.snippet.topLevelComment.snippet.textDisplay;
+                    comments.push(comment);
+                });
+                const body = { comments }
+                console.log(body);
+                setCmnts(comments);
+                const res2 = await axios.post('http://surajr425.pythonanywhere.com/analyze', body);
+                console.log(res2.data.predictions);
+                const arr = [0, 0, 0];
+                res2.data.predictions.forEach(ele => {
+                    if (ele == 0) { arr[0]++ }
+                    else if (ele == 1) { arr[1]++ }
+                    else if (ele == -1) { arr[2]++ }
+                });
+                setData(arr);
+
+                setLoading("Comments will be loaded here...");
+            }
+        }
+        catch (error) {
+            console.error('Error fetching comments:', error);
+            setLoading("Error occurred! Enter proper link or check your internet connection ");
+            setCmnts([]);
+        };
+    }
     const handleSaving = () => {
         if (cmnts.length > 0) {
             const storeItem = {
                 postLink: url,
                 date: new Date().toLocaleDateString(),
-                totalcmnts: 50,
-                positive: 5 / 50 * 100,
-                negative: 20 / 50 * 100
+                totalcmnts: cmnts.length,
+                positive: Math.round((data[1] / cmnts.length) * 100),
+                negative: Math.round((data[2] / cmnts.length) * 100)
             }
             const arr = storeData;
             arr.push(storeItem);
@@ -65,7 +111,12 @@ const SinglePost = () => {
         }
     }
     const handleAction = () => {
-        fetchRedditComments();
+        if (url.includes("youtube")) {
+            fetchYtComments();
+
+        } else if (url.includes("reddit")) {
+            fetchRedditComments();
+        }
     }
     return (
         <div style={{ width: "100%", display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
