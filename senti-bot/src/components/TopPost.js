@@ -73,11 +73,10 @@ const TopPost = () => {
         <div>
             <div style={{ width: "100%", display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", marginBlock: "5%" }}>
                 <div style={{ width: "40%", height: 50 }}>
-
                     <input type='text' style={{ width: "99%", height: "90%", borderRadius: "8px" }} value={url} onChange={(event) => { setUrl(event.target.value) }} />
                 </div>
 
-                <button onClick={handleAction}>FETCH</button>
+                <Button variant="contained" color="success" onClick={handleAction}>FETCH</Button>
 
                 <Grid container spacing={0} sx={{}}>
                     <Grid item xs={7}>
@@ -88,9 +87,12 @@ const TopPost = () => {
                                 postData.map((ele, key) => {
                                     return (
                                         <>
-                                            <Box sx={{ display: "flex", flexDirection: "column" }}>
-                                                <a style={{ textDecoration: 'none', color: "black" }} href={`https://www.reddit.com${ele.PostURL}`} target='_blank' className='para'>{`${ele.Title}`}</a>
-                                                <p> (Total cmnts={ele.TotalComments}) </p> <Button sx={{ width: "15%" }} onClick={() => fetchComments(`https://www.reddit.com${ele.PostURL}`)}>Analyze</Button>
+                                            <Box sx={{ display: "flex", flexDirection: "column", backgroundColor: "#000080", marginInline: "5px", padding: "5px", paddingLeft: "5%", borderRadius: "15px", color: "#ffffff" }}>
+                                                <a style={{ textDecoration: 'none', color: "white" }} href={`https://www.reddit.com${ele.PostURL}`} target='_blank' className='para'>{`${ele.Title}`}</a>
+                                                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                                    <Button variant="contained" color="success" sx={{ height: "1%", marginRight: "5%" }} onClick={() => fetchComments(`https://www.reddit.com${ele.PostURL}`)}>Analyze</Button>
+                                                    <p > (Total cmnts={ele.TotalComments}) </p>
+                                                </Box>
                                             </Box>
                                             <hr style={{ width: "95%" }} />
                                         </>
