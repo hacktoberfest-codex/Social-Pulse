@@ -1,5 +1,5 @@
 
-![Header_Img](https://github.com/sukriti-kuila/Top-Scoring-T20WC/assets/87015685/0cfb6978-3eb8-4b16-bc84-c53d1f035bfc)
+![Header_Img](Header_Img.png)
 
 
 

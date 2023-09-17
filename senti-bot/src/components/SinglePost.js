@@ -16,7 +16,7 @@ const SinglePost = () => {
             setLoading("Loading comments please wait...")
             const response = await axios.get(url + ".json")
             console.log(response);
-            const comments = [];
+            const comments = ["",];
             const data = response.data[1].data.children;
             let counter = 1;
             data.forEach((child) => {
@@ -26,7 +26,18 @@ const SinglePost = () => {
             });
             const body = { comments }
             console.log(body);
-            setCmnts(comments);
+            setCmnts(comments.slice(1));
+            const res2 = await axios.post('http://surajr425.pythonanywhere.com/analyze', body
+                )
+                console.log(res2.data.predictions);
+                const arr = [0, 0, 0];
+                res2.data.predictions.forEach(ele => {
+                    if (ele == 0) { arr[0]++ }
+                    else if (ele == 1) { arr[1]++ }
+                    else if (ele == -1) { arr[2]++ }
+                });
+            setData(arr);
+            console.log('Comments saved to Top Comments.json');
             setLoading("Comments will be loaded here...");
         }
         catch (error) {
