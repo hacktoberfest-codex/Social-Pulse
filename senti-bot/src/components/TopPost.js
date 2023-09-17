@@ -2,7 +2,7 @@ import { Box, Button, Card, CardActions, CardContent, Grid, Link, Typography } f
 import React, { useState } from 'react'
 import axios from 'axios'
 import PieChart from './charts/PieCharts';
-
+import Linechart from './charts/LineChart';
 
 const TopPost = () => {
     const [postData, setPostData] = useState([]);
@@ -10,6 +10,7 @@ const TopPost = () => {
     const [loading, setLoading] = useState("Posts will be loaded here...");
     const [data, setData] = useState([0, 0, 0]);
     const [cmnts, setCmnts] = useState([]);
+    const [dataArray, setDataArray] = useState([]);
     const fetchPosts = async () => {
         setLoading("Loading Posts please wait...")
         try {
@@ -83,14 +84,26 @@ const TopPost = () => {
     const handleAction = () => {
         fetchPosts();
     }
+    const fetchAll = async () => {
+
+        const results = await Promise.all(postData.map((ele) => {
+
+            return fetchComments(`https://www.reddit.com${ele.PostURL}`);
+        }));
+        const filteredArray = results.filter((value) => value !== undefined);
+        setDataArray(filteredArray);
+    }
+    console.log(dataArray);
     return (
         <div>
             <div style={{ width: "100%", display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                 <div className="glow-on-hover" style={{ width: "40%", height: 50, marginBlock: "1%" }}>
                     <input type='text' style={{ width: "98%", height: "90%", borderRadius: "8px", color: "white", backgroundColor: "black", paddingLeft: "8px" }} value={url} onChange={(event) => { setUrl(event.target.value) }} />
                 </div>
-
-                <button className='stylebg' style={{ width: "150px", height: "40px", borderRadius: "10px", fontWeight: "bold", fontFamily: 'sans-serif', marginTop: "8px" }} onClick={handleAction}>FETCH</button>
+                <div>
+                    <button className='stylebg' style={{ width: "150px", height: "40px", borderRadius: "10px", fontWeight: "bold", fontFamily: 'sans-serif', marginTop: "8px" }} onClick={handleAction}>FETCH</button>
+                    {postData.length > 0 && <button className='stylebg' style={{ width: "150px", height: "40px", borderRadius: "10px", fontWeight: "bold", fontFamily: 'sans-serif', marginTop: "8px", marginLeft: "6px" }} onClick={fetchAll}>ANALYZE ALL</button>}
+                </div>
 
                 <Grid container spacing={0} sx={{ marginBlock: "3%", width: "100%" }}>
                     <Grid item md={8} sx={12}>
@@ -151,7 +164,10 @@ const TopPost = () => {
                         </Box>
                     </Grid>
                 </Grid>
-
+                {dataArray.length > 0 && <Box >
+                    <h1>Top Posts Analysis</h1>
+                    <Linechart data={dataArray} />
+                </Box>}
             </div>
         </div>
     )
