@@ -3,12 +3,14 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import zIndex from '@mui/material/styles/zIndex';
 import { Box, Grid } from '@mui/material';
+import PieChart from './charts/PieCharts';
+
 
 const SinglePost = () => {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Comments will be loaded here...");
     const [cmnts, setCmnts] = useState([]);
-   
+    const [data,setData]=useState([0,1,3]);
 
 
     const fetchRedditComments = async () => {
@@ -64,7 +66,11 @@ const SinglePost = () => {
                             })
                         }
                     </Box></Grid>
-                    
+                <Grid item xs={5}>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
+                        <PieChart data={data}/>
+                    </Box>
+                </Grid>    
             </Grid>    
         </div>
     )
