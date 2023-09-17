@@ -30,6 +30,7 @@ Screenshot:
 ![Single-Post](SinglePost_Img.jpg)
 - Top Post allows user to input a subreddit link and it fetches the top comments and shows the result in the form of a pie chart
 ![Top-Post-Page](TopPost_Img.jpg)
+- The History Page serves as a comprehensive log of all saved single post analyses. It provides a chronological record of past analyses conducted on individual Reddit posts or other similar single pieces of content.
 ![History](History_Img.jpg)
 
 ## Getting Started
