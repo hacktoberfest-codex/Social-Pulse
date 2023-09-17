@@ -27,9 +27,10 @@ The Social Media Sentiment Analysis Project is a web-based tool designed to anal
 - **Single Post** allows users to input a YouTube video URL or a single Reddit post URL. It fetches the comments from the source and performs sentiment analysis on these comments. The sentiment analysis results are then presented to the user in the form of a pie chart, categorizing comments as neutral, negative, or positive sentiments.
 
 ![Single-Post](SinglePost_Img.jpg)
-- The **Top Post** feature empowers users to input a subreddit link of their choice. It efficiently retrieves and analyzes the TOP POSTS within the specified subreddit. The result is then visualized in a user-friendly pie chart format.
+- The **Top Post** feature empowers users to input a subreddit link of their choice. It efficiently retrieves and analyzes the TOP POSTS within the specified subreddit. The result is then visualized in a user-friendly pie chart and line chart format.
 
 ![Top-Post-Page](TopPost_Img.jpg)
+![Line-Chart](LineChart_Img.png)
 
 - The **History** Page serves as a comprehensive log of all saved single post analyses. It provides a chronological record of past analyses conducted on individual Reddit posts or other similar single pieces of content.
 ![History](History_Img.jpg)
