@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Link } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -74,8 +74,10 @@ export default function History() {
                 <TableBody>
                     {data.length > 0 && data.map((row, key) => (
                         <StyledTableRow key={row.postLink}>
-                            <StyledTableCell sx={{ cursor: "pointer" }} scope="row" component={Link}>
-                                {row.postLink}
+                            <StyledTableCell sx={{ cursor: "pointer" }} scope="row" component='th'>
+                                <Typography component={Link} href={row.postLink} target='_blank' gutterBottom>
+                                    {row.postLink}
+                                </Typography>
                             </StyledTableCell>
                             <StyledTableCell align="center">{row.date}</StyledTableCell>
                             <StyledTableCell align="center">{row.totalcmnts}</StyledTableCell>
