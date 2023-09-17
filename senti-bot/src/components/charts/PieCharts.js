@@ -21,7 +21,7 @@ const PieChart = ({ data }) => {
     return (
         // <Box className="pie-chart" sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
         <Box sx={{ width: '60%' }}>
-            <h1>Sentiment Analysis</h1>
+            <h2>Sentiment Analysis</h2>
             <Doughnut data={dataset} options={{
                 responsive: true,
                 maintainAspectRatio: true,
