@@ -4,6 +4,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SinglePost from './components/SinglePost';
 import TopPost from './components/TopPost';
+import History from './components/History';
 
 
 function App() {
@@ -18,23 +19,42 @@ function App() {
       <h1 >Social Sentiment Analyzer</h1>
       <ToggleButtonGroup
         value={mode}
+
         exclusive
+
+
         onChange={handleChange}
         aria-label="Platform"
         sx={{
-          color: "#ffffff",
-          border: "2px solid #04d9ff",
-          marginInline: "5%"
+          marginBottom: "3%",
+          color: "#ffffff", border: "2px solid #04d9ff",
+          '& .MuiToggleButton-root':
+          {
+            color: "#ffffff",
+            height: "35px"
+          },
+          '.MuiToggleButton-root.Mui-selected,  .MuiToggleButton-root.Mui-selected:hover': {
+            backgroundColor: "#04d9ff",
+            color: '#00000',
+
+          }
         }}
       >
         <ToggleButton defaultChecked={true} value="singlePost">Single Post</ToggleButton>
         <ToggleButton value="topPost">Top Post</ToggleButton>
         <ToggleButton value="history">History</ToggleButton>
       </ToggleButtonGroup>
-      {mode == "singlePost" && <SinglePost />}
-      {mode == "topPost" && < TopPost />}
-      {/* {mode == "history" && <FetchUrl />} */}
-      {/* <FetchUrl /> */}
+      {
+        mode == 'singlePost' && <SinglePost />
+      }
+      {
+        mode == 'topPost' && <TopPost />
+
+      }
+      {
+        mode == 'history' && <History />
+      }
+
     </div>
   );
 }
