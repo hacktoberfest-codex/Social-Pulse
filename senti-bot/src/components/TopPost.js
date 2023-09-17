@@ -54,9 +54,24 @@ const TopPost = () => {
                     comments.push(comment);
 
                 });
+                const body = { comments: comments.slice(0, 100) }
+                console.log(body);
                 setCmnts(comments);
+                const res2 = await axios.post('http://surajr425.pythonanywhere.com/analyze', body
+                )
+                console.log(res2.data.predictions);
+                const arr = [0, 0, 0];
+                res2.data.predictions.forEach(ele => {
+                    if (ele == 0) { arr[0]++ }
+                    else if (ele == 1) { arr[1]++ }
+                    else if (ele == -1) { arr[2]++ }
+                });
+                setData(arr);
 
+                console.log('Comments saved to Top Comments.json');
                 setLoading("Comments will be loaded here...");
+                return { "+ve": arr[1], "-ve": arr[2], "Total": res2.data.predictions.length };
+              
             }
         }
         catch (error) {
@@ -111,11 +126,11 @@ const TopPost = () => {
                                                         {ele.Title}
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">
-                                                        Total Comments: {ele.TotalComments}
+                                                        {/* Total Comments: {cmnts.length} */}
                                                     </Typography>
                                                 </CardContent>
                                                 <CardActions>
-                                                    <Button size="small">Analyze</Button>
+                                                <Button sx={{ width: "15%" }} onClick={() => fetchComments(`https://www.reddit.com${ele.PostURL}`)}>Analyze</Button>
                                                 </CardActions>
                                             </Card>
 
