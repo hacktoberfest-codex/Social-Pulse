@@ -84,7 +84,7 @@ npm start
 1: Positive sentiment.-
 
 ## Example
-![API-Structure](api_structure_img.png)
+![API-Structure](api_structure_img.jpg)
 
 
 
