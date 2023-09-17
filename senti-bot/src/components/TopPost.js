@@ -8,7 +8,7 @@ const TopPost = () => {
     const [postData, setPostData] = useState([]);
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Posts will be loaded here...");
-    const [data, setData] = useState([1, 0, 1]);
+    const [data, setData] = useState([0, 0, 0]);
     const [cmnts, setCmnts] = useState([]);
     const fetchPosts = async () => {
         setLoading("Loading Posts please wait...")
@@ -46,7 +46,7 @@ const TopPost = () => {
             if (url !== "") {
                 const response = await axios.get(link + ".json")
                 console.log(response);
-                const comments = [];
+                const comments = ["",];
                 const data = response.data[1].data.children;
 
                 data.forEach((child) => {
@@ -71,7 +71,7 @@ const TopPost = () => {
                 console.log('Comments saved to Top Comments.json');
                 setLoading("Comments will be loaded here...");
                 return { "+ve": arr[1], "-ve": arr[2], "Total": res2.data.predictions.length };
-              
+
             }
         }
         catch (error) {
@@ -92,8 +92,8 @@ const TopPost = () => {
 
                 <button className='stylebg' style={{ width: "150px", height: "40px", borderRadius: "10px", fontWeight: "bold", fontFamily: 'sans-serif', marginTop: "8px" }} onClick={handleAction}>FETCH</button>
 
-                <Grid container spacing={0} sx={{ marginBlock: "3%" }}>
-                    <Grid item xs={8}>
+                <Grid container spacing={0} sx={{ marginBlock: "3%", width: "100%" }}>
+                    <Grid item md={8} sx={12}>
                         <Box sx={{ backgroundColor: "#00A8CC", height: "50px", borderRadius: "8px 8px 0 0" }}>
                             <h2 style={{ margin: "0px", paddingTop: "15px" }}>Top Post Links</h2>
                         </Box>
@@ -101,7 +101,7 @@ const TopPost = () => {
                             {postData.length == 0 ? loading :
                                 postData.map((ele, key) => {
                                     return (
-                                        <Grid item xs={6}>
+                                        <Grid sx={{ width: "50%" }} item xs={12} md={6}>
                                             <Card sx={{
                                                 marginBlock: "8px", border: "1px solid #000000",
                                                 '& .MuiPaper-root ,& .MuiCardContent-root ,& .MuiTypography-root': {
@@ -111,10 +111,10 @@ const TopPost = () => {
                                                     height: "70px",
 
                                                 },
-                                                '& .MuiTypography-root,& .MuiLink-root,& .MuiLink-underlineAlways ,& .css-l38osx-MuiTypography-root-MuiLink-root-MuiTypography-root': {
+                                                '& .MuiTypography-root,& .MuiLink-root': {
                                                     display: "block",
                                                     width: "95%",
-                                                    maxHeight: "40px",
+                                                    height: "19px",
                                                     whiteSpace: "nowrap",
                                                     overflow: "hidden",
                                                     textOverflow: "ellipsis"
@@ -127,10 +127,15 @@ const TopPost = () => {
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">
                                                         {/* Total Comments: {cmnts.length} */}
+                                                        Post ID:{ele.ID}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {/* Total Comments: {cmnts.length} */}
+                                                        Score:{ele.Score}
                                                     </Typography>
                                                 </CardContent>
                                                 <CardActions>
-                                                <Button sx={{ width: "15%" }} onClick={() => fetchComments(`https://www.reddit.com${ele.PostURL}`)}>Analyze</Button>
+                                                    <Button sx={{ width: "15%" }} onClick={() => fetchComments(`https://www.reddit.com${ele.PostURL}`)}>Analyze</Button>
                                                 </CardActions>
                                             </Card>
 
@@ -140,7 +145,7 @@ const TopPost = () => {
                                 })
                             }
                         </Grid></Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={12} md={4}>
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
                             <PieChart data={data} />
                         </Box>
