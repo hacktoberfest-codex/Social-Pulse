@@ -77,8 +77,8 @@ const TopPost = () => {
 
                 <button className='stylebg' style={{ width: "150px", height: "40px", borderRadius: "10px", fontWeight: "bold", fontFamily: 'sans-serif', marginTop: "8px" }} onClick={handleAction}>FETCH</button>
 
-                <Grid container spacing={0} sx={{ marginBlock: "3%" }}>
-                    <Grid item xs={8}>
+                <Grid container spacing={0} sx={{ marginBlock: "3%", width: "100%" }}>
+                    <Grid item md={8} sx={12}>
                         <Box sx={{ backgroundColor: "#00A8CC", height: "50px", borderRadius: "8px 8px 0 0" }}>
                             <h2 style={{ margin: "0px", paddingTop: "15px" }}>Top Post Links</h2>
                         </Box>
@@ -86,7 +86,7 @@ const TopPost = () => {
                             {postData.length == 0 ? loading :
                                 postData.map((ele, key) => {
                                     return (
-                                        <Grid item xs={6}>
+                                        <Grid sx={{ width: "50%" }} item xs={12} md={6}>
                                             <Card sx={{
                                                 marginBlock: "8px", border: "1px solid #000000",
                                                 '& .MuiPaper-root ,& .MuiCardContent-root ,& .MuiTypography-root': {
@@ -99,7 +99,7 @@ const TopPost = () => {
                                                 '& .MuiTypography-root,& .MuiLink-root,& .MuiLink-underlineAlways ,& .css-l38osx-MuiTypography-root-MuiLink-root-MuiTypography-root': {
                                                     display: "block",
                                                     width: "95%",
-                                                    maxHeight: "40px",
+                                                    height: "19px",
                                                     whiteSpace: "nowrap",
                                                     overflow: "hidden",
                                                     textOverflow: "ellipsis"
@@ -111,7 +111,13 @@ const TopPost = () => {
                                                         {ele.Title}
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">
+                                                        Post ID: {ele.ID}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
                                                         Total Comments: {ele.TotalComments}
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        Score: {ele.Score}
                                                     </Typography>
                                                 </CardContent>
                                                 <CardActions>
@@ -125,7 +131,7 @@ const TopPost = () => {
                                 })
                             }
                         </Grid></Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={12} md={4}>
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }} >
                             <PieChart data={data} />
                         </Box>
