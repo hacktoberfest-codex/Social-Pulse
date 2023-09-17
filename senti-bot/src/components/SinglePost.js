@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react'
 import zIndex from '@mui/material/styles/zIndex';
 import { Box, Grid } from '@mui/material';
+
 const SinglePost = () => {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState("Comments will be loaded here...");
@@ -63,6 +64,7 @@ const SinglePost = () => {
                             })
                         }
                     </Box></Grid>
+                    
             </Grid>    
         </div>
     )
