@@ -10,7 +10,7 @@
 ![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 # Social Pulse: Sentiments on Social Media Platforms
-
+# Deployed here :https://team38-frontend.vercel.app/
 
 
 
