@@ -11,6 +11,7 @@
 
 # Social Pulse: Sentiments on Social Media Platforms
 # Deployed here :https://team38-frontend.vercel.app/
+backend will stop working after November 2023 due to server limit
 
 
 
